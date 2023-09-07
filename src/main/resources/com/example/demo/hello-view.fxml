@@ -42,7 +42,7 @@
                   <Font name="Clarendon BT Roman" size="58.0" />
                </font>
             </Label>
-            <Button fx:id="restartButton" layoutX="133.0" layoutY="138.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="164.0" text="Restart">
+            <Button fx:id="restartButton" layoutX="133.0" layoutY="138.0" mnemonicParsing="false" onAction="#restart" prefHeight="40.0" prefWidth="164.0" text="Restart">
                <font>
                   <Font name="Clarendon BT Bold" size="20.0" />
                </font>

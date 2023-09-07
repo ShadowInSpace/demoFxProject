@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -14,7 +15,6 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 714, 400);
-//        stage.setTitle("Hello!");
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
 
