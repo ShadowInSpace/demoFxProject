@@ -1,8 +1,10 @@
 package com.example.demo;
 
 import javafx.animation.*;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
 import javafx.util.Duration;
 import javafx.scene.media.MediaPlayer;
 
@@ -87,8 +90,20 @@ public class HelloController {
         gameRunning=true;
         paneGameOver.setVisible(false);
     }
-protected void fonMusic(){
-
+protected void fonMusic() {
+    if (mediaPlayer == null){
+        try {
+            String fileName = getClass().getResource("/sounds/ABitOfHope.mp3").toURI().toString();
+            Media media = new Media(fileName);
+            mediaPlayer = new MediaPlayer(media);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+    mediaPlayer.setOnEndOfMedia(() -> {
+        mediaPlayer.seek(Duration.ZERO); 
+        mediaPlayer.play();
+    });
 }
     @FXML
     void initialize() {
@@ -115,6 +130,8 @@ protected void fonMusic(){
         parallelTransition.play();
         timer.start();
         gameRunning = true;
+        fonMusic();
+        mediaPlayer.play();
     }
 
 }
