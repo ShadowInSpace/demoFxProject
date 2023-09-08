@@ -24,7 +24,7 @@ public class HelloController {
     @FXML
     private URL location;
     @FXML
-    private ImageView bg1, bg2, player, enemy;
+    private ImageView bg1, bg2, player, enemy, playerJump;
     @FXML
     private Pane paneGameOver;
     @FXML
@@ -49,14 +49,25 @@ public class HelloController {
         public void handle(long l) {
             if (jump && player.getLayoutY() > 20f) {
                 player.setLayoutY(player.getLayoutY() - playerSpeed);
+                playerJump.setLayoutY(playerJump.getLayoutY() - playerSpeed);
+                playerJump.setVisible(true);
+                player.setVisible(false);
             } else if (player.getLayoutY() <= 181f) {
                 jump = false;
                 player.setLayoutY(player.getLayoutY() + jumpDownSpeed);
+                playerJump.setLayoutY(playerJump.getLayoutY() + jumpDownSpeed);
+                playerJump.setVisible(false);
+                player.setVisible(true);
+
             }
-            if (right && player.getLayoutX() < 200f)
+            if (right && player.getLayoutX() < 200f) {
                 player.setLayoutX(player.getLayoutX() + playerSpeed);
-            if (left && player.getLayoutX() > 28f)
+                playerJump.setLayoutX(playerJump.getLayoutX() + playerSpeed);
+            }
+            if (left && player.getLayoutX() > 28f) {
                 player.setLayoutX(player.getLayoutX() - playerSpeed);
+                playerJump.setLayoutX(playerJump.getLayoutX() - playerSpeed);
+            }
             if (gameRunning) {
                 playerSpeed = 3;
                 jumpDownSpeed = 5;
@@ -101,7 +112,7 @@ protected void fonMusic() {
         }
     }
     mediaPlayer.setOnEndOfMedia(() -> {
-        mediaPlayer.seek(Duration.ZERO); 
+        mediaPlayer.seek(Duration.ZERO);
         mediaPlayer.play();
     });
 }

@@ -25,6 +25,11 @@
             <Image url="@../../../images/Wikipe-tan_full_length.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="playerJump" fitHeight="150.0" fitWidth="200.0" layoutX="37.0" layoutY="174.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../images/playerJump.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="enemy" fitHeight="57.0" fitWidth="42.0" layoutX="720.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/octopus.png" />
