@@ -43,7 +43,7 @@ public class HelloController {
     public static boolean gameRunning = false;
     public static boolean isPouse = false;
     private static int scoreCount=0;
-    private int playerSpeed = 3, jumpDownSpeed = 5, enemySpeed = 2;
+    private int playerSpeed = 3, jumpDownSpeed = 5, enemySpeed = 3500;
 
     private MediaPlayer mediaPlayer;
 
@@ -51,6 +51,8 @@ public class HelloController {
         @Override
         public void handle(long l) {
             score.setText(Integer.toString(scoreCount));
+
+
 
             if (jump && player.getLayoutY() > 20f) {
                 player.setLayoutY(player.getLayoutY() - playerSpeed);
@@ -105,6 +107,8 @@ public class HelloController {
         enemyTransirion.playFromStart();
         gameRunning=true;
         paneGameOver.setVisible(false);
+        enemySpeed=3500;
+        scoreCount=0;
     }
 protected void fonMusic() {
     if (mediaPlayer == null){
@@ -133,13 +137,16 @@ protected void fonMusic() {
         bgTwoTransirion.setToX(BG_WIDTH * -1);
         bgTwoTransirion.setInterpolator(Interpolator.LINEAR);
 
-        enemyTransirion = new TranslateTransition(Duration.millis(3500), enemy);
+        enemyTransirion = new TranslateTransition(Duration.millis(enemySpeed), enemy);
         enemyTransirion.setFromX(0);
         enemyTransirion.setToX(BG_WIDTH * -1 -100);
         enemyTransirion.setInterpolator(Interpolator.LINEAR);
 //        enemyTransirion.setCycleCount(Animation.INDEFINITE);
         enemyTransirion.setOnFinished(event -> {
             scoreCount++;
+            enemySpeed=enemySpeed-50;
+            System.out.println("enemySpeed = " + enemySpeed);
+            enemyTransirion.setDuration(Duration.millis(enemySpeed));
             enemyTransirion.play();
                 });
         enemyTransirion.play();
