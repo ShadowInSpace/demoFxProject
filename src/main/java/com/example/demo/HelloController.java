@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import javafx.animation.*;
-import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 
 import java.net.URISyntaxException;
@@ -13,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.scene.media.MediaPlayer;
 
@@ -28,7 +28,9 @@ public class HelloController {
     @FXML
     private Pane paneGameOver;
     @FXML
-    private Label lablePause, lableGameOver;
+    private Label labelPause, lableGameOver;
+    @FXML
+    private Text score;
     @FXML
     private Button restartButton;
     private final int BG_WIDTH = 714;
@@ -40,6 +42,7 @@ public class HelloController {
     public static boolean left = false;
     public static boolean gameRunning = false;
     public static boolean isPouse = false;
+    private static int scoreCount=0;
     private int playerSpeed = 3, jumpDownSpeed = 5, enemySpeed = 2;
 
     private MediaPlayer mediaPlayer;
@@ -47,6 +50,8 @@ public class HelloController {
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long l) {
+            score.setText(Integer.toString(scoreCount));
+
             if (jump && player.getLayoutY() > 20f) {
                 player.setLayoutY(player.getLayoutY() - playerSpeed);
                 playerJump.setLayoutY(playerJump.getLayoutY() - playerSpeed);
@@ -80,11 +85,11 @@ public class HelloController {
                 enemyTransirion.pause();
             }
 
-            if (isPouse && !lablePause.isVisible()) {
-                lablePause.setVisible(true);
+            if (isPouse && !labelPause.isVisible()) {
+                labelPause.setVisible(true);
                 gameRunning = false;
-            } else if (!isPouse && lablePause.isVisible()) {
-                lablePause.setVisible(false);
+            } else if (!isPouse && labelPause.isVisible()) {
+                labelPause.setVisible(false);
                 gameRunning = true;
             }
 
@@ -132,7 +137,11 @@ protected void fonMusic() {
         enemyTransirion.setFromX(0);
         enemyTransirion.setToX(BG_WIDTH * -1 -100);
         enemyTransirion.setInterpolator(Interpolator.LINEAR);
-        enemyTransirion.setCycleCount(Animation.INDEFINITE);
+//        enemyTransirion.setCycleCount(Animation.INDEFINITE);
+        enemyTransirion.setOnFinished(event -> {
+            scoreCount++;
+            enemyTransirion.play();
+                });
         enemyTransirion.play();
 
 
