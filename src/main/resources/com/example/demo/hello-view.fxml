@@ -55,10 +55,25 @@
             </Button>
          </children>
       </Pane>
-      <Text fx:id="score" fill="#1717bf" layoutX="563.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="125.390625">
+      <Text fx:id="score" fill="#1717bf" layoutX="574.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="125.390625">
          <font>
             <Font name="Clarendon BT Bold" size="40.0" />
          </font>
       </Text>
+      <ImageView fx:id="heart1" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart2" fitHeight="30.0" fitWidth="30.0" layoutX="54.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart3" fitHeight="30.0" fitWidth="30.0" layoutX="94.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/heart.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

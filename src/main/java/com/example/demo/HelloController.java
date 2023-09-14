@@ -26,6 +26,8 @@ public class HelloController {
     @FXML
     private ImageView bg1, bg2, player, enemy, playerJump;
     @FXML
+    private ImageView heart1, heart2, heart3;
+    @FXML
     private Pane paneGameOver;
     @FXML
     private Label labelPause, lableGameOver;
@@ -41,6 +43,7 @@ public class HelloController {
     public static boolean right = false;
     public static boolean left = false;
     public static boolean gameRunning = false;
+    private boolean isAlive = true;
     public static boolean isPouse = false;
     private static int scoreCount=0;
     private int playerSpeed = 3, jumpDownSpeed = 5, enemySpeed = 3500;
