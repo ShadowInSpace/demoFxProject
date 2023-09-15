@@ -49,7 +49,7 @@ public class HelloController {
     private static int scoreCount=0;
     private int playerSpeed = 3, jumpDownSpeed = 5, enemySpeed = 3500;
 
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer, jumpPlayer;
 
     AnimationTimer timer = new AnimationTimer() {
         @Override

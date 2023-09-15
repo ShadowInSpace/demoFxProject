@@ -19,8 +19,10 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
 
         scene.setOnKeyPressed(e->{
-            if(e.getCode()== KeyCode.SPACE && !HelloController.jump)
+            if(e.getCode()== KeyCode.SPACE && !HelloController.jump){
                 HelloController.jump = true;
+                SoundController.jumpSound();
+            }
             if(e.getCode()== KeyCode.D)
                 HelloController.right = true;
             if(e.getCode()== KeyCode.A)
