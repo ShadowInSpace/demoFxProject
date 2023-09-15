@@ -44,6 +44,7 @@ public class HelloController {
     public static boolean left = false;
     public static boolean gameRunning = false;
     private boolean isAlive = true;
+    private int lives=3;
     public static boolean isPouse = false;
     private static int scoreCount=0;
     private int playerSpeed = 3, jumpDownSpeed = 5, enemySpeed = 3500;
@@ -99,9 +100,31 @@ public class HelloController {
             }
 
             if (player.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
-                paneGameOver.setVisible(true);
-                gameRunning = false;
+                lives--;
+                enemyTransirion.playFromStart();
+                if(lives<1) {
+                    paneGameOver.setVisible(true);
+                    gameRunning = false;
+                }
             }
+            if(lives>2){
+                heart1.setVisible(true);
+                heart2.setVisible(true);
+                heart3.setVisible(true);
+            } else if (lives>1) {
+                heart1.setVisible(true);
+                heart2.setVisible(true);
+                heart3.setVisible(false);
+            } else if (lives>0) {
+                heart1.setVisible(true);
+                heart2.setVisible(false);
+                heart3.setVisible(false);
+            } else {
+                heart1.setVisible(false);
+                heart2.setVisible(false);
+                heart3.setVisible(false);
+            }
+
         }
     };
 
@@ -112,6 +135,7 @@ public class HelloController {
         paneGameOver.setVisible(false);
         enemySpeed=3500;
         scoreCount=0;
+        lives = 3;
     }
 protected void fonMusic() {
     if (mediaPlayer == null){
