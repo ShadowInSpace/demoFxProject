@@ -36,6 +36,11 @@
             <Image url="@../../../images/octopus.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="enemyAttack" fitHeight="57.0" fitWidth="42.0" layoutX="720.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../images/octopusAttac.png" />
+         </image>
+      </ImageView>
       <Label fx:id="labelPause" focusTraversable="false" layoutX="272.0" layoutY="101.0" text="Pause" visible="false">
          <font>
             <Font name="Clarendon BT Roman" size="58.0" />

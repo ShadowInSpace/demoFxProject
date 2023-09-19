@@ -5,10 +5,12 @@ import javafx.fxml.FXML;
 
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -24,7 +26,7 @@ public class HelloController {
     @FXML
     private URL location;
     @FXML
-    private ImageView bg1, bg2, player, enemy, playerJump;
+    private ImageView bg1, bg2, player, enemy,enemyAttack, playerJump;
     @FXML
     private ImageView heart1, heart2, heart3;
     @FXML
@@ -38,7 +40,7 @@ public class HelloController {
     private final int BG_WIDTH = 714;
     private ParallelTransition parallelTransition;
 
-    private TranslateTransition enemyTransirion;
+    private TranslateTransition enemyTransition, enemyATransition;
     public static boolean jump = false;
     public static boolean right = false;
     public static boolean left = false;
@@ -83,12 +85,14 @@ public class HelloController {
                 playerSpeed = 3;
                 jumpDownSpeed = 5;
                 parallelTransition.play();
-                enemyTransirion.play();
+                enemyTransition.play();
+                enemyATransition.play();
             } else {
                 playerSpeed = 0;
                 jumpDownSpeed = 0;
                 parallelTransition.pause();
-                enemyTransirion.pause();
+                enemyTransition.pause();
+                enemyATransition.pause();
             }
 
             if (isPouse && !labelPause.isVisible()) {
@@ -100,12 +104,7 @@ public class HelloController {
             }
 
             if (player.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
-                lives--;
-                enemyTransirion.playFromStart();
-                if(lives<1) {
-                    paneGameOver.setVisible(true);
-                    gameRunning = false;
-                }
+                hitByEnemy();
             }
             if(lives>2){
                 heart1.setVisible(true);
@@ -130,12 +129,41 @@ public class HelloController {
 
     @FXML
     void restart() {
-        enemyTransirion.playFromStart();
+        enemyTransition.playFromStart();
+        enemyATransition.playFromStart();
         gameRunning=true;
         paneGameOver.setVisible(false);
         enemySpeed=3500;
         scoreCount=0;
         lives = 3;
+    }
+
+    private void hitByEnemy(){
+        lives--;
+//        enemy.setVisible(false);
+        Image image = null;
+
+            image = new Image("C:\\Users\\ShadowSpace\\IdeaProjects\\testProjects\\FXProjects\\demo\\src\\main\\resources\\images\\octopusAttac.png");
+//todo треба поправити щоб працювало по відносному посиланню
+        enemy.setImage(image);
+        enemyAttack.setVisible(true);
+        parallelTransition.pause();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        parallelTransition.play();
+//        enemy.setVisible(true);
+//        enemyAttack.setVisible(false);
+
+        if(lives<1) {
+            paneGameOver.setVisible(true);
+            gameRunning = false;
+        }
+
+        enemyTransition.playFromStart();
+        enemyATransition.playFromStart();
     }
 protected void fonMusic() {
     if (mediaPlayer == null){
@@ -164,19 +192,32 @@ protected void fonMusic() {
         bgTwoTransirion.setToX(BG_WIDTH * -1);
         bgTwoTransirion.setInterpolator(Interpolator.LINEAR);
 
-        enemyTransirion = new TranslateTransition(Duration.millis(enemySpeed), enemy);
-        enemyTransirion.setFromX(0);
-        enemyTransirion.setToX(BG_WIDTH * -1 -100);
-        enemyTransirion.setInterpolator(Interpolator.LINEAR);
+        enemyTransition = new TranslateTransition(Duration.millis(enemySpeed), enemy);
+        enemyTransition.setFromX(0);
+        enemyTransition.setToX(BG_WIDTH * -1 -100);
+        enemyTransition.setInterpolator(Interpolator.LINEAR);
 //        enemyTransirion.setCycleCount(Animation.INDEFINITE);
-        enemyTransirion.setOnFinished(event -> {
+        enemyTransition.setOnFinished(event -> {
             scoreCount++;
             enemySpeed=enemySpeed-50;
             System.out.println("enemySpeed = " + enemySpeed);
-            enemyTransirion.setDuration(Duration.millis(enemySpeed));
-            enemyTransirion.play();
+            enemyTransition.setDuration(Duration.millis(enemySpeed));
+            enemyTransition.play();
                 });
-        enemyTransirion.play();
+        enemyTransition.play();
+
+        enemyATransition = new TranslateTransition(Duration.millis(enemySpeed), enemyAttack);
+        enemyATransition.setFromX(0);
+        enemyATransition.setToX(BG_WIDTH * -1 -100);
+        enemyATransition.setInterpolator(Interpolator.LINEAR);
+        enemyATransition.setOnFinished(event -> {
+            scoreCount++;
+            enemySpeed=enemySpeed-50;
+            System.out.println("enemySpeed = " + enemySpeed);
+            enemyATransition.setDuration(Duration.millis(enemySpeed));
+            enemyATransition.play();
+        });
+        enemyATransition.play();
 
 
         parallelTransition = new ParallelTransition(bgOneTransirion, bgTwoTransirion);
